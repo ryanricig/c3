@@ -1,0 +1,444 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+:root {
+  --color-primary-blue: #2A535D;
+  --color-primary-abstract: #3f51b5;
+  --color-primary-green: #4caf50;
+  --color-primary-dark-mint: #2a535d;
+  --color-primary-yellow: #ffc700;
+  --color-secondary-blue: #eff8ff;
+  --color-secondary-green: #e2f2e3;
+  --color-secondary-yellow: #fff6d6;
+  --color-secondary-participant: #d8f2ec;
+  --color-mono-light-grey: #f9f9f9;
+  --color-mono-light-grey-2: #f7f7f7;
+  --color-mono-light-grey-3: #f5f5f5;
+  --color-mono-light-grey-4: #f1f1f1;
+  --color-mono-grey: #b6b6b6;
+  --color-mono-grey-2: #979797;
+  --color-mono-grey-3: #565656;
+  --color-mono-dark-grey: #202020;
+  --color-mono-white: #ffffff;
+  --transparent-hover-2: rgba(0, 0, 0, .06);
+  --transparent-hover-3: rgba(0, 0, 0, .08);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.schedule-container {
+  max-width: 980px;
+  margin: 36px auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.schedule-day {
+  background: var(--color-primary-blue);
+  color: var(--color-mono-white);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 18px 20px 10px 20px;
+  border-radius: 13px 13px 0 0;
+  margin: 38px 0 0 0;
+  box-shadow: 0 2px 6px var(--transparent-hover-3);
+  border-left: 5px solid var(--color-primary-blue);
+}
+
+.agenda-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 7px;
+  table-layout: fixed;
+}
+
+.agenda-table th, .agenda-table td {
+  border: none;
+  vertical-align: top;
+  text-align: left;
+}
+
+.agenda-table th.time,
+.agenda-table td.time {
+  width: 160px;
+  min-width: 140px;
+  font-variant-numeric: tabular-nums;
+}
+
+.agenda-table th.session-type,
+.agenda-table td.session-type {
+  width: 90px;
+  min-width: 75px;
+  font-size: .95rem;
+}
+
+.agenda-table th.details,
+.agenda-table td.details {
+  width: 44%;
+  min-width: 220px;
+}
+
+.agenda-table th.location,
+.agenda-table td.location {
+  width: 185px;
+  min-width: 120px;
+}
+
+.agenda-table th {
+  background: var(--color-mono-light-grey-2);
+  color: var(--color-primary-dark-mint);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 13px 12px;
+}
+
+.agenda-table td {
+  font-size: 1.04rem;
+  color: var(--color-mono-dark-grey);
+  padding: 13px 12px;
+}
+
+.agenda-table tr {
+  background: var(--color-mono-white);
+  border-radius: 9px;
+  box-shadow: 0 1px 4px var(--transparent-hover-2);
+}
+
+.agenda-table .plenary { background: var(--color-mono-light-grey-3); }
+.agenda-table .breakout { background: var(--color-mono-light-grey-2); }
+.agenda-table .meal { background: var(--color-secondary-yellow); }
+.agenda-table .reception { background: var(--color-secondary-participant); }
+.agenda-table .registration { background: var(--color-mono-light-grey-2); }
+.agenda-table .honorary { background: var(--color-mono-light-grey-4); }
+.agenda-table .closing { background: var(--color-mono-light-grey-2); }
+
+.agenda-table td.time {
+  color: var(--color-primary-dark-mint);
+  font-weight: 700;
+  font-size: 1.07rem;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+
+.agenda-table td.session-type {
+  font-size: .97rem;
+  font-weight: 600;
+  color: var(--color-mono-grey-2);
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+  vertical-align: top;
+}
+
+.ampm {
+  font-size: .92em;
+  color: var(--color-mono-grey-2);
+  margin: 0 1px 0 1px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.session-speaker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.session-speaker:last-child { margin-bottom: 0; }
+
+.session-speaker img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--color-secondary-green);
+  background: var(--color-mono-light-grey-5);
+  box-shadow: 0 1px 4px var(--transparent-hover-2);
+  flex-shrink: 0;
+}
+
+.session-title {
+  font-weight: 500;
+  color: var(--color-primary-dark-mint);
+  margin-bottom: 2px;
+  font-size: 1.02em;
+}
+
+.speaker-name {
+  font-size: .97em;
+  color: var(--color-mono-grey-2);
+}
+
+.session-note {
+  font-size: .95em;
+  color: var(--color-mono-grey-2);
+  margin-top: 3px;
+}
+
+@media (max-width: 900px) {
+  .schedule-container { padding: 0 2vw; }
+}
+
+@media (max-width: 700px) {
+  .agenda-table, .agenda-table thead, .agenda-table tbody, .agenda-table tr {
+    display: block;
+    width: 100%;
+  }
+  .agenda-table tr { margin-bottom: 16px; }
+  .agenda-table th, .agenda-table td {
+    display: block;
+    width: 100%;
+    padding: 10px 7px;
+    text-align: left;
+  }
+  .agenda-table th { border-radius: 7px 7px 0 0; }
+}
+
+</style>
+<div class="schedule-container">
+
+    <!-- THURSDAY -->
+    <div class="schedule-day">Thursday, October 2, 2025</div>
+    <table class="agenda-table">
+      <thead>
+        <tr>
+          <th class="time">Time</th>
+          <th class="session-type">Type</th>
+          <th class="details">Details</th>
+          <th class="location">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="registration">
+          <td class="time">3:00<span class="ampm">PM</span> – 6:30<span class="ampm">PM</span></td>
+          <td class="session-type">Registration</td>
+          <td class="details">
+            On-site contacts:<br>
+            Angie Haan (<a href="mailto:angie@purdue.edu">angie@purdue.edu</a>, 765-714-1774) &bull; 
+            Darla Mazur (<a href="mailto:djmazur@purdue.edu">djmazur@purdue.edu</a>, 314-971-9660)
+          </td>
+          <td class="location">Grand Registration Office<br>Ground Floor</td>
+        </tr>
+        <tr class="reception">
+          <td class="time">6:30<span class="ampm">PM</span> – 8:30<span class="ampm">PM</span></td>
+          <td class="session-type">Reception</td>
+          <td class="details session-title">Welcome Reception</td>
+          <td class="location">Riverfront Room<br>1st Floor</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- FRIDAY -->
+    <div class="schedule-day">Friday, October 3, 2025</div>
+    <table class="agenda-table">
+      <thead>
+        <tr>
+          <th class="time">Time</th>
+          <th class="session-type">Type</th>
+          <th class="details">Details</th>
+          <th class="location">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="registration">
+          <td class="time">7:00<span class="ampm">AM</span> – 7:45<span class="ampm">AM</span></td>
+          <td class="session-type">Registration</td>
+          <td class="details"></td>
+          <td class="location">Grand Registration Office<br>Ground Floor</td>
+        </tr>
+           <tr class="plenary">
+          <td class="time">7:45<span class="ampm">AM</span> – 8:00<span class="ampm">AM</span></td>
+          <td class="session-type">Opening</td>
+          <td class="details">Opening Remarks</td>
+          <td class="location">Grand Ballroom AB<br>Lower Level</td>
+        </tr>
+        <tr class="plenary">
+          <td class="time">8:00<span class="ampm">AM</span> – 10:00<span class="ampm">AM</span></td>
+          <td class="session-type">Plenary</td>
+          <td class="details">
+            <div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/ve2m6vnr1ffl-20250210165224.png" alt="Kimberly Kurtis">
+              <div>
+                <div class="session-title">Performance and Sustainability in Modern Cement-Based Materials: Building on a Legacy of Innovation</div>
+                <div class="speaker-name">Kimberly Kurtis, Georgia Tech, USA</div>
+              </div>
+            </div>
+            <div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/iuu6xszk2lad-20250210165147.png" alt="Johann Plank">
+              <div>
+                <div class="session-title">Innovations in Molecular Engineering of Chemical Admixtures for Low-Carbon “Green” Concrete</div>
+                <div class="speaker-name">Johann Plank, Technical University of Munich, Germany</div>
+              </div>
+            </div>
+            <div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/ktgtvppe3dkf-20240618171342.png" alt="Ravindra Gettu">
+              <div>
+                <div class="session-title">Engineering Low-Carbon Concrete Without the “Hype”</div>
+                <div class="speaker-name">Ravindra Gettu, IIT Madras, India</div>
+              </div>
+            </div>
+          </td>
+          <td class="location">Grand Ballroom AB<br>Lower Level</td>
+        </tr>
+        <tr class="breakout">
+          <td class="time">10:30<span class="ampm">AM</span> – 12:30<span class="ampm">PM</span></td>
+          <td class="session-type">Breakout</td>
+          <td class="details">Breakout Sessions</td>
+          <td class="location">Promenade Ballrooms<br>Lower Level</td>
+        </tr>
+        <tr class="meal">
+          <td class="time">12:30<span class="ampm">PM</span> – 1:30<span class="ampm">PM</span></td>
+          <td class="session-type">Lunch</td>
+          <td class="details">Lunch Provided</td>
+          <td class="location">Grand Ballroom C<br>Lower Level</td>
+        </tr>
+        <tr class="breakout">
+          <td class="time">1:30<span class="ampm">PM</span> – 3:30<span class="ampm">PM</span></td>
+          <td class="session-type">Breakout</td>
+          <td class="details">Breakout Sessions</td>
+          <td class="location">Promenade Ballrooms<br>Lower Level</td>
+        </tr>
+        <tr class="breakout">
+          <td class="time">4:00<span class="ampm">PM</span> – 6:00<span class="ampm">PM</span></td>
+          <td class="session-type">Breakout</td>
+          <td class="details">Breakout Sessions</td>
+          <td class="location">Promenade Ballrooms<br>Lower Level</td>
+        </tr>
+        <tr class="special">
+          <td class="time">10:30<span class="ampm">AM</span> – 5:00<span class="ampm">PM</span></td>
+          <td class="session-type">Workshop</td>
+          <td class="details">UTC DuRE-Transp Workshop</td>
+          <td class="location">Executive Meeting Room<br>Lower Level</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- SATURDAY -->
+    <div class="schedule-day">Saturday, October 4, 2025</div>
+    <table class="agenda-table">
+      <thead>
+        <tr>
+          <th class="time">Time</th>
+          <th class="session-type">Type</th>
+          <th class="details">Details</th>
+          <th class="location">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="registration">
+          <td class="time">7:00<span class="ampm">AM</span> – 8:00<span class="ampm">AM</span></td>
+          <td class="session-type">Registration</td>
+          <td class="details"></td>
+          <td class="location">Grand Registration Office<br>Ground Floor</td>
+        </tr>
+        <tr class="plenary">
+          <td class="time">8:00<span class="ampm">AM</span> – 10:00<span class="ampm">AM</span></td>
+          <td class="session-type">Plenary</td>
+          <td class="details">
+            <div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/n2r5hze6vz6j-20250210165309.png" alt="Maria Juenger">
+              <div>
+                <div class="session-title">Reducing Clinker Content using Blended Type IL Cements and Pozzolans</div>
+                <div class="speaker-name">Maria Juenger, UT Austin, USA</div>
+              </div>
+            </div>
+            <div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/vv044qacbj4w-20250210165406.png" alt="Doug Hooton">
+              <div>
+                <div class="session-title">Enabling Innovative Lower-Carbon Concretes Through Performance Specifications</div>
+                <div class="speaker-name">Doug Hooton, University of Toronto, Canada</div>
+              </div>
+            </div>
+            <div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/k36xs00cakxp-20250210165029.png" alt="Zongjin Li">
+              <div>
+                <div class="session-title">Advancement of the Building Material Techniques under Guidance of Physics</div>
+                <div class="speaker-name">Zongjin Li, Macau University of Science and Technology, Macau</div>
+              </div>
+            </div>
+          </td>
+          <td class="location">Grand Ballroom AB<br>Lower Level</td>
+        </tr>
+        <tr class="breakout">
+          <td class="time">10:30<span class="ampm">AM</span> – 12:30<span class="ampm">PM</span></td>
+          <td class="session-type">Breakout</td>
+          <td class="details">Breakout Sessions</td>
+          <td class="location">Promenade Ballrooms<br>Lower Level</td>
+        </tr>
+        <tr class="meal">
+          <td class="time">12:30<span class="ampm">PM</span> – 1:30<span class="ampm">PM</span></td>
+          <td class="session-type">Lunch</td>
+          <td class="details">Lunch Provided</td>
+          <td class="location">Grand Ballroom C<br>Lower Level</td>
+        </tr>
+        <tr class="plenary">
+          <td class="time">1:30<span class="ampm">PM</span> – 2:10<span class="ampm">PM</span></td>
+          <td class="session-type">Plenary</td>
+          <td class="details">
+            <div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/zsjqznzhgczx-20250210165508.png" alt="Zdenek Bazant">
+              <div>
+                <div class="session-title">The Shard Test and Nanoporomechanics Reverse Classical Paradigm of Cement Hydration Being Contractive</div>
+                <div class="speaker-name">Zdeněk P. Bažant, Northwestern University, USA</div>
+              </div>
+            </div>
+          </td>
+          <td class="location">Grand Ballroom AB<br>Lower Level</td>
+        </tr>
+        <tr class="breakout">
+          <td class="time">2:30<span class="ampm">PM</span> – 4:30<span class="ampm">PM</span></td>
+          <td class="session-type">Breakout</td>
+          <td class="details">Breakout Sessions</td>
+          <td class="location">Promenade Ballrooms<br>Lower Level</td>
+        </tr>
+        <tr class="honorary">
+          <td class="time">5:00<span class="ampm">PM</span> – 6:00<span class="ampm">PM</span></td>
+          <td class="session-type">Honorary Lecture</td>
+          <td class="details"><div class="session-speaker">
+              <img src="https://media.meetinghand.com/c3-conferemce-oh44f/speakers/aw3y9gq54vzw-20250210165118.png" alt="Zdenek Bazant">
+              <div>
+                <div class="session-title">Honorary Lecture</div>
+                <div class="speaker-name">Surendra P. Shah, University of Texas at Arlington, USA</div>
+              </div>
+            </div></td>
+          <td class="location">Grand Ballroom AB<br>Lower Level</td>
+        </tr>
+        <tr class="meal">
+          <td class="time">6:30<span class="ampm">PM</span></td>
+          <td class="session-type">Banquet</td>
+          <td class="details">Dinner Banquet</td>
+          <td class="location">Grand Ballroom C<br>Lower Level</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- SUNDAY -->
+    <div class="schedule-day">Sunday, October 5, 2025</div>
+    <table class="agenda-table">
+      <thead>
+        <tr>
+          <th class="time">Time</th>
+          <th class="session-type">Type</th>
+          <th class="details">Details</th>
+          <th class="location">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="closing">
+          <td class="time">9:00<span class="ampm">AM</span> – 10:00<span class="ampm">AM</span></td>
+          <td class="session-type">Closing</td>
+          <td class="details">Closing remarks</td>
+          <td class="location">Grand Ballroom AB<br>Lower Level</td>
+        </tr>
+        <tr>
+          <td class="time"></td>
+          <td class="session-type"></td>
+          <td class="details">Departure and Travel Day</td>
+          <td class="location"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
